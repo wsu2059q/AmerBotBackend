@@ -1,0 +1,42 @@
+{
+    "server":{
+        "host": "0.0.0.0",
+        "port": 5888
+    },
+    "qq": {
+        "bot_name": "",
+        "bot_qq": ""
+    },
+    "yh": {
+        "token": "",
+        "webhook":{
+            "path": "/webhook"
+        }
+    },
+    "WeatherApi" : {
+        "url": "http://api.weatherapi.com/v1/current.json",
+        "token": ""
+    },
+    "OpenAI":{
+        "base_url": "https://api.openai.com",
+        "api_key": ""
+    },
+    "Redis": {
+        "host": "localhost",
+        "port": 6379,
+        "db": 8,
+        "password": ""
+    },
+    "SQLite": {
+        "db_path": "config/SqliteDB/bind/yh.db"
+    },
+    "Message": {
+        "message-YH": "**指令说明**\n1. **/绑定 <QQ群号>**\n   - **功能**: 将当前云湖群 QQ 群进行绑定。\n2. **/同步模式 <双向 / 停止 / QQ到云湖 / 云湖到QQ>**\n   - **功能**: 切换消息同步模式，支持双向同步, 单向同步(云湖到QQ,QQ到云湖), 停止同步\n3. **/取消绑定 <确定>**\n   - **功能**: 取消与 QQ 群的绑定。需要输 “确定” 以确认解绑。 \n---\n*请注意：操作教程需在机器人私聊中使用 `/帮助` 指令。*",
+        "message-YH-followed": "# 欢迎使用Amer-Link!\n\n## 简介\n\n欢迎使用Amer！本机器人用于在云湖群和QQ群之间同步消息。请注意，您无法在当前页面使用绑定指令。\n\n### 功能更新\n\nAmer-Link现在支持以下功能：\n\n1. **单向消息同步**：消息可以设置 从云湖单向同步到QQ群 或 从QQ群单向同步到云湖\n2. **双向消息同步**：消息可以在云湖和QQ群之间双向同步\n3. **其它同步**：除了文字消息，图片,表情包等图像也可以在云湖和QQ群之间同步\n\n### 如何使用\n\n1. **添加Amer至群聊**：\n   - 请确保将Amer添加至您的QQ群和云湖群。\n   - [点击此处添加QQ-Amer](https://qm.qq.com/q/2RSZSEkRwY)\n\n2. **在云湖端操作**：\n   - 在云湖群中绑定您的QQ群，以便开始消息同步。\n   - 当云湖群绑定QQ群时，QQ群中会提示“此群被云湖绑定了”。\n\n3. **选择同步模式**：\n   - 根据您的需求选择单向或双向消息同步。 \n---\n*请注意：指令详情请在云湖群中使用 `/帮助` 指令查看。*\n\n如果想请我嚯奶茶,[点我赞助](https://ifdian.net/a/YingXinche)"
+    },  
+    "Ban": {
+        "ban_ai_id": [
+            
+        ]
+    }
+}
