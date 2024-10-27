@@ -12,7 +12,7 @@ async def handle_msg(event: Event):
     if event:
         await QQ_msg_handler(event,qqBot)
     else:
-        return {'reply': "我的机体出错了喵,快联系我的机体主人修好我! - 2694611137", 'at_sender': False}
+        return {'reply': "我的机体出错了喵~(呜咽)", 'at_sender': False}
 # qqBotHanderForIncrease - 接收通知事件
 @qqBot.on_notice('group_increase')
 async def handle_group_increase(event: Event):
