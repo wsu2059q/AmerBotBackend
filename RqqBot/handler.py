@@ -4,6 +4,7 @@ import requests
 import RyhBot.bind as bind
 import RyhBot.send as yhBot
 import RyhBot.upload_image.upload_image as yh_upload_image
+import file_operation.download as download
 import ai_chat
 import redis
 from config import (ban_ai_id, bot_name, bot_qq, redis_host, redis_port, redis_db, redis_password, yh_token)
@@ -123,7 +124,7 @@ async def process_cq_code(cq_code, yh_token):
         if not image_filename.lower().endswith('.png'):
             image_filename += '.png'
         # 下载图片并保存到Temp文件夹
-        image_path, image_filename = download_image(image_url)
+        image_path, image_filename = download.image(image_url)
         # 上传到云湖
         image_key = yh_upload_image(image_path, image_filename, yh_token)
         if image_key:
