@@ -3,6 +3,7 @@ import os
 import requests
 import RyhBot.bind as bind
 import RyhBot.send as yhBot
+import RyhBot.upload_image.upload_image as yh_upload_image
 import ai_chat
 import redis
 from config import (ban_ai_id, bot_name, bot_qq, redis_host, redis_port, redis_db, redis_password, yh_token)
@@ -124,7 +125,7 @@ async def process_cq_code(cq_code, yh_token):
         # 下载图片并保存到Temp文件夹
         image_path, image_filename = download_image(image_url)
         # 上传到云湖
-        image_key = upload_image(image_path, image_filename, yh_token)
+        image_key = yh_upload_image(image_path, image_filename, yh_token)
         if image_key:
             return image_key, "image"
         else:
