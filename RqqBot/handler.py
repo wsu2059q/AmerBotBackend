@@ -115,57 +115,20 @@ def extract_cq_codes(raw_message):
     return cq_code_pattern.findall(raw_message)
 
 # 处理CQ码的函数
-async def process_cq_code(cq_code):
+async def process_cq_code(cq_code, yh_token):
     if cq_code.startswith("image"):
-        # 提取图片的URL
-        image_url_match = re.search(r'url=(.*?)(?:,|$)', cq_code)
-        if image_url_match:
-            image_url = image_url_match.group(1)
-            # 替换URL中的&amp;为&
-            image_url = image_url.replace("&amp;", "&")
-            
-            # 提取图片的原始文件名
-            image_filename_match = re.search(r'file=(.*?)(?:,|$)', cq_code)
-            if image_filename_match:
-                image_filename = image_filename_match.group(1)
-                # 添加.png后缀
-                if not image_filename.lower().endswith('.png'):
-                    image_filename += '.png'
-            else:
-                image_filename = os.path.basename(image_url)
-                # 添加.png后缀
-                if not image_filename.lower().endswith('.png'):
-                    image_filename += '.png'
-            
-            # 下载图片
-            image_data = requests.get(image_url).content
-            
-            # 创建Temp文件夹（如果不存在）
-            temp_folder = "Temp"
-            if not os.path.exists(temp_folder):
-                os.makedirs(temp_folder)
-            
-            # 保存图片到Temp文件夹，以原始文件名命名并添加.png后缀
-            image_path = os.path.join(temp_folder, image_filename)
-            with open(image_path, "wb") as image_file:
-                image_file.write(image_data)
-            
-            # 上传图片到云湖，指定文件名为原始文件名并添加.png后缀
-            upload_url = f"https://chat-go.jwzhd.com/open-apis/v1/image/upload?token={yh_token}"
-            with open(image_path, "rb") as image_file:
-                files = {'image': (image_filename, image_file)}
-                response = requests.post(upload_url, files=files)
-                if response.status_code == 200:
-                    response_data = response.json()
-                    if response_data['msg'] == "success":
-                        image_key = response_data['data']['imageKey']
-                        return image_key, "image"
-                    else:
-                        print(f"上传图片失败: {response_data['msg']}")
-                        return None, None
-                else:
-                    print(f"上传图片失败: {response.status_code}")
-                    return None, None
+        image_url = re.search(r'url=(.*?)(?:,|$)', cq_code).group(1).replace("&amp;", "&")
+        image_filename = re.search(r'file=(.*?)(?:,|$)', cq_code).group(1) or os.path.basename(image_url)
+        if not image_filename.lower().endswith('.png'):
+            image_filename += '.png'
+        # 下载图片并保存到Temp文件夹
+        image_path, image_filename = download_image(image_url)
+        # 上传到云湖
+        image_key = upload_image(image_path, image_filename, yh_token)
+        if image_key:
+            return image_key, "image"
+        else:
+            return None, None
     return None, None
 
 # 删除CQ码的函数
