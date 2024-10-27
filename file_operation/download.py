@@ -1,6 +1,6 @@
 import os
 
-def download_image(image_url, temp_folder="Temp"):
+def image(image_url, temp_folder="Temp"):
     # 下载图片
     image_data = requests.get(image_url).content
     
